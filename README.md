@@ -160,6 +160,9 @@
 - 구입 금액이 1000원 단위인지에 대한 검증은 어디서 해야할까? <br> <br>
   &rarr; 도메인은 항상 불변해야하고 유효한 상태여야하기 때문에 도메인 내부에서 검증을 하자!
   (출처: https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/domain-model-layer-validations)
+
+  - 구현 순서에 대한 고민이 생겼다. 머릿속에 떠오르는 클래스도 많고 검증할 예외도 많다. 그리고 기능에 대한 역할 분리, 예외 처리에 대한 역할 분리 등을 생각하다보니 구현 순서를 어떤식으로 해야할지 라는 고민이 생겼다. <br> <br>
+    &rarr; 우선 핵심 도메인 모델과 이에 대한 검증 사항부터 구현해보자!
 ## 패키지 구조
 
 ---
