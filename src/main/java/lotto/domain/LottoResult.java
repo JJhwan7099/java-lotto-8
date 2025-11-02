@@ -22,6 +22,10 @@ public class LottoResult {
         return result;
     }
 
+    public int getCount(LottoRank rank) {
+        return this.result.get(rank);
+    }
+
     public int getTotalPrize() {
         int totalPrize = 0;
         for(Map.Entry<LottoRank, Integer> entry : this.result.entrySet()) {
