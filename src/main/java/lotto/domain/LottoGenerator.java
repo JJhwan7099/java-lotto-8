@@ -8,14 +8,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import static lotto.domain.LottoConstraints.*;
+
 public class LottoGenerator {
 
     private final Lottos lottos;
-
-    private static final int LOTTO_NUMBER_MIN = 1;
-    private static final int LOTTO_NUMBER_MAX = 45;
-    private static final int LOTTO_NUMBER_COUNT = 6;
-    private static final int LOTTO_PRICE = 1000;
 
     public LottoGenerator(Lottos lottos) {
         this.lottos = lottos;
