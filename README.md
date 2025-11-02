@@ -173,6 +173,9 @@
 
 - 일치하는 번호 및 보너스 번호 일치 여부를 확인하는 로직은 어디에 위치해야할까? (로또 당첨번호 및 보너스 번호를 저장하는 클래스?/ 로또 결과를 확인하고 결과를 저장하는 클래스?) <br> <br>
   &rarr; 당첨 번호라는 도메인이 스스로 판정을 책임지도록 하는것이 맞다고 생각이 들어서 LottoWinningNumbers 내부에서 확인하고 개수를 반환하는 형태로 구현하자!
+
+- 전체 로또에 대한 확인 결과를 LottoResultCalculator에서 LottoResult를 의존성을 주입받아 추가하는게 나을까? / LottoResultCalculator 내부에서 LottoRank()를 생성해서 컨트롤러에 반환하는게 좋을까?
+  &rarr; LottoResult는 계산 결과이며, 상태가 필요한 객체가 아니다. 따라서 LottoResultCalculator는 외부에서 주입받지 않고 내부에서 LottoResult를 생성한 후 결과 객체를 반환하도록 설계했다.
   
 
 ## 패키지 구조
