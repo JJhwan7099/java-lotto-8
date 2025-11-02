@@ -28,9 +28,9 @@ public class LottoGenerator {
     }
 
     private List<Integer> generateRandomLottoNumbers() {
-        List<Integer> lottoNumbers = Randoms.pickUniqueNumbersInRange(LOTTO_NUMBER_MIN, LOTTO_NUMBER_MAX, LOTTO_NUMBER_COUNT);
-        Collections.sort(lottoNumbers);
-
-        return lottoNumbers;
+        return Randoms.pickUniqueNumbersInRange(LOTTO_NUMBER_MIN, LOTTO_NUMBER_MAX, LOTTO_NUMBER_COUNT)
+                .stream()
+                .sorted()
+                .toList();
     }
 }
