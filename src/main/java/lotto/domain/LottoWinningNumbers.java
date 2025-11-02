@@ -1,5 +1,8 @@
 package lotto.domain;
 
+import lotto.exception.ErrorCode;
+
+import java.util.HashSet;
 import java.util.List;
 
 public class LottoWinningNumbers {
@@ -8,8 +11,8 @@ public class LottoWinningNumbers {
 
     public LottoWinningNumbers(List<Integer> winningNumbers, int bonusNumber) {
         validateWinningNumbers(winningNumbers);
-        validateBonusNumber(bonusNumber);
         this.winningNumbers = winningNumbers;
+        validateBonusNumber(bonusNumber);
         this.bonusNumber = bonusNumber;
     }
 
@@ -29,15 +32,40 @@ public class LottoWinningNumbers {
         return lottoNumbers.contains(bonusNumber);
     }
 
+
+    private void validateWinningNumbers(List<Integer> winningNumbers) {
+        validateWinningNumbersRange(winningNumbers);
+        validateWinningNumbersDuplicate(winningNumbers);
+    }
+
     private void validateBonusNumber(int bonusNumber) {
-        if(bonusNumber < 1 || bonusNumber > 45) {
-            throw new IllegalArgumentException("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+        validateBonusNumberRange(bonusNumber);
+        validateBonusNumberDuplicate(bonusNumber);
+    }
+
+    private void validateWinningNumbersRange(List<Integer> winningNumbers) {
+        for (Integer number : winningNumbers) {
+            if(number < LottoConstraints.LOTTO_NUMBER_MIN|| number > LottoConstraints.LOTTO_NUMBER_MAX)
+                throw new IllegalArgumentException(ErrorCode.WINNING_NUMBER_RANGE_INVALID.getMessage());
         }
     }
 
-    private void validateWinningNumbers(List<Integer> winningNumbers) {
-        for (Integer number : winningNumbers) {
-            if(number < 1 || number > 45) throw new IllegalArgumentException("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+    private void validateWinningNumbersDuplicate(List<Integer> winningNumbers) {
+        HashSet<Integer> duplicateNumbers = new HashSet<>(winningNumbers);
+        if(duplicateNumbers.size() != winningNumbers.size()){
+            throw new IllegalArgumentException(ErrorCode.WINNING_NUMBER_DUPLICATE.getMessage());
+        }
+    }
+
+    private void validateBonusNumberRange(int bonusNumber) {
+        if(bonusNumber < LottoConstraints.LOTTO_NUMBER_MIN || bonusNumber > LottoConstraints.LOTTO_NUMBER_MAX) {
+            throw new IllegalArgumentException(ErrorCode.BONUS_NUMBER_RANGE_INVALID.getMessage());
+        }
+    }
+
+    private void validateBonusNumberDuplicate(int bonusNumber) {
+        if(winningNumbers.contains(bonusNumber)) {
+            throw new IllegalArgumentException(ErrorCode.BONUS_NUMBER_DUPLICATE.getMessage());
         }
     }
 }
