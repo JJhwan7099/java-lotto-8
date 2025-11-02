@@ -14,7 +14,7 @@ public class Lottos {
         lottos.add(lotto);
     }
 
-    public List<Lotto> gotAllLottos() {
+    public List<Lotto> getAllLottos() {
         return lottos;
     }
 }
