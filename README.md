@@ -177,7 +177,11 @@
 - 전체 로또에 대한 확인 결과를 LottoResultCalculator에서 LottoResult를 의존성을 주입받아 추가하는게 나을까? / LottoResultCalculator 내부에서 LottoRank()를 생성해서 컨트롤러에 반환하는게 좋을까?
   &rarr; LottoResult는 계산 결과이며, 상태가 필요한 객체가 아니다. 따라서 LottoResultCalculator는 외부에서 주입받지 않고 내부에서 LottoResult를 생성한 후 결과 객체를 반환하도록 설계했다.
   
-
+- OutputView에서 도메인 내부 상태를 그대로 출력하는것에 문제가 없을까?
+  - 문제점
+    - 도메인과 출력형식이 서로 의존하게 될 수 있을것 같다
+    - 단위 테스트시 서로의 역할이 분리되어 있어야할 것 같다
+  &rarr; OutputView 전용 DTO(Data Transfer Object)를 사용해보자!
 ## 패키지 구조
 
 ---
