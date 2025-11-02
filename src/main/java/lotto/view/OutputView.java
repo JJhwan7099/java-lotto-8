@@ -5,10 +5,13 @@ import lotto.domain.LottoRank;
 import lotto.domain.LottoResult;
 import lotto.domain.TotalPurchaseAmount;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
 public class OutputView {
+    private static final DecimalFormat MONEY_FORMAT = new DecimalFormat("#,###");
+
     public void printRequestTotalPurchaseAmount() {
         System.out.println("구입금액을 입력해 주세요.");
     }
@@ -28,20 +31,28 @@ public class OutputView {
         }
     }
 
-    public void printLottoResults(Map<LottoRank, Integer> result) {
+    public void printResult(LottoResult lottoResult, int totalPurchaseAmount) {
         System.out.println("\n당첨 통계\n---");
-        for(Map.Entry<LottoRank, Integer> entry : result.entrySet()) {
-            if(entry.getKey() == LottoRank.NONE) continue;
-            System.out.print(entry.getKey().getMatchedCount() + "개 일치");
-            if(entry.getKey().isBonusMatched()) System.out.print(", 보너스 볼 일치");
-            System.out.printf(" (%,d원) - ", entry.getKey().getPrizeAmount());
-            System.out.println(entry.getValue() + "개");
-        }
+        printRankResults(lottoResult);
+        printProfitRate(lottoResult, totalPurchaseAmount);
     }
 
-    public void printProfitRate(int totalPrize, int totalPurchaseAmount) {
-        float profitRate = (float) totalPrize / totalPurchaseAmount * 100;
-        profitRate = (float) Math.round(profitRate * 100) / 100;
+    private void printRankResults(LottoResult lottoResult) {
+        printRankResult(LottoRank.FIFTH, lottoResult);
+        printRankResult(LottoRank.FOURTH, lottoResult);
+        printRankResult(LottoRank.THIRD, lottoResult);
+        printRankResult(LottoRank.SECOND, lottoResult);
+        printRankResult(LottoRank.FIRST, lottoResult);
+    }
+
+    private void printRankResult(LottoRank rank, LottoResult lottoResult) {
+        System.out.println(rank.getDescription() + " ("
+                + MONEY_FORMAT.format(rank.getPrizeAmount())+"원) - "
+                + lottoResult.getResult().get(rank) + "개");
+    }
+
+    private void printProfitRate(LottoResult lottoResult, int totalPurchaseAmount) {
+        float profitRate = (float) Math.round(((float) lottoResult.getTotalPrize() / totalPurchaseAmount) * 100 * 100) / 100;
         System.out.println("총 수익률은 " + profitRate + "%입니다.");
     }
 
