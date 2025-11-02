@@ -42,8 +42,7 @@ public class LottoController {
 
         LottoWinningNumbers lottoWinningNumbers = new LottoWinningNumbers(parsedLottoWinningNumbers,lottoBonusNumber);
 
-        LottoResultCalculator lottoResultCalculator = new LottoResultCalculator(lottoWinningNumbers, lottos);
-        LottoResult lottoResult = lottoResultCalculator.calculateRank();
+        LottoResult lottoResult = new LottoResultCalculator().calculateRank(lottos, lottoWinningNumbers);
 
         outputView.printLottoResults(lottoResult.getResult());
         outputView.printProfitRate(lottoResult.getTotalPrize(), totalPurchaseAmount.getValue());
