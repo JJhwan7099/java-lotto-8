@@ -167,6 +167,9 @@
 - String으로 받은 totalPurchaseAmount를 int형으로 파싱하는 과정에서 NumberFormatException이 발생하는지 검증해야하는데, InputValidator, controller에서 2번 파싱을 하는건 오버헤드가 발생하지 않을까? 어떤식으로 해결해야할까? <br> <br>
   &rarr; 실제로 파싱을 하기전에 InputValidator에서는 정규식을 통해 검증을 하자.
 
+- 입력값 검증을 InputValidator에서 하는데, 도메인 객체 생성시 또 한번 검증해야될까?
+  &rarr; 테스트시 도메인 객체 생성에 검증부가 없다면 정확한 테스트가 되지 않을 수 있고, 도메인은 스스로 불변성을 유지해야하는 책임이 있으므로 한번 더 검증하자!
+
 - 구입 금액이 1000원 단위인지에 대한 검증은 어디서 해야할까? <br> <br>
   &rarr; 도메인은 항상 불변해야하고 유효한 상태여야하기 때문에 도메인 내부에서 검증을 하자!
   (출처: https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/domain-model-layer-validations)
