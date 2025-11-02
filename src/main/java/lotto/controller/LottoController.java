@@ -44,8 +44,7 @@ public class LottoController {
 
         LottoResult lottoResult = new LottoResultCalculator().calculateRank(lottos, lottoWinningNumbers);
 
-        outputView.printLottoResults(lottoResult.getResult());
-        outputView.printProfitRate(lottoResult.getTotalPrize(), totalPurchaseAmount.getValue());
+        outputView.printResult(lottoResult, totalPurchaseAmount.getValue());
     }
 
     private String inputLottoBonusNumber() {
