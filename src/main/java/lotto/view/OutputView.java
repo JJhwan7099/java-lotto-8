@@ -3,11 +3,9 @@ package lotto.view;
 import lotto.domain.Lotto;
 import lotto.domain.LottoRank;
 import lotto.domain.LottoResult;
-import lotto.domain.TotalPurchaseAmount;
 
 import java.text.DecimalFormat;
 import java.util.List;
-import java.util.Map;
 
 public class OutputView {
     private static final DecimalFormat MONEY_FORMAT = new DecimalFormat("#,###");
