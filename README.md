@@ -298,3 +298,11 @@ src/main/java/lotto
 
 <img width="2586" height="2396" alt="package" src="https://github.com/user-attachments/assets/28d572e2-4934-4448-af6f-ce70a6c1ae60" />
 
+## 프로젝트 시작전 필기 첨부
+
+---
+
+![이름 없는 노트북 (1)-2](https://github.com/user-attachments/assets/a4cc8633-c8af-4609-ba7a-4afc9aae97cd)
+
+
+
