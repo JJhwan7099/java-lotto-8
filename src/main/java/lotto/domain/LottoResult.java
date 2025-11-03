@@ -19,7 +19,7 @@ public class LottoResult {
     }
 
     public Map<LottoRank, Integer> getResult() {
-        return result;
+        return new EnumMap<>(this.result);
     }
 
     public int getCount(LottoRank rank) {
