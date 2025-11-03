@@ -1,11 +1,19 @@
 package lotto.domain.parser;
 
-import lotto.validator.InputValidator;
+import lotto.exception.ErrorCode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class InputParser {
+
+    public int parseTotalPurchaseAmount(String totalPurchaseAmount) {
+        try{
+            return Integer.parseInt(totalPurchaseAmount);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(ErrorCode.TOTAL_PURCHASE_AMOUNT_FORMAT_INVALID.getMessage());
+        }
+    }
 
     public List<Integer> parseLottoWinningNumbers(String inputLottoWinningNumbers) {
         String[] numbers = inputLottoWinningNumbers.split(",", -1);
@@ -15,11 +23,8 @@ public class InputParser {
                 lottoWinningNumbers.add(Integer.parseInt(number.trim()));
             }
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("[ERROR] 로또 번호는 숫자형식이어야 합니다.");
+            throw new IllegalArgumentException(ErrorCode.WINNING_NUMBER_UNIT_FORMAT_INVALID.getMessage());
         }
-
-        InputValidator.validateLottoWinningNumbers(lottoWinningNumbers);
-
         return lottoWinningNumbers;
     }
 
@@ -27,7 +32,7 @@ public class InputParser {
         try{
             return Integer.parseInt(inputLottoBonusNumber.trim());
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("[ERROR] 보너스 번호는 숫자형식이어야 합니다.");
+            throw new IllegalArgumentException(ErrorCode.BONUS_NUMBER_FORMAT_INVALID.getMessage());
         }
     }
 }
