@@ -165,39 +165,42 @@
 ---
 
 - String으로 받은 totalPurchaseAmount를 int형으로 파싱하는 과정에서 NumberFormatException이 발생하는지 검증해야하는데, InputValidator, controller에서 2번 파싱을 하는건 오버헤드가 발생하지 않을까? 어떤식으로 해결해야할까? <br> <br>
-  &rarr; 실제로 파싱을 하기전에 InputValidator에서는 정규식을 통해 검증을 하자.
+  &rarr; 실제로 파싱을 하기전에 InputValidator에서는 정규식을 통해 검증을 하자. <br>
 
-- 입력값 검증을 InputValidator에서 하는데, 도메인 객체 생성시 또 한번 검증해야될까?
-  &rarr; 테스트시 도메인 객체 생성에 검증부가 없다면 정확한 테스트가 되지 않을 수 있고, 도메인은 스스로 불변성을 유지해야하는 책임이 있으므로 한번 더 검증하자!
+- 입력값 검증을 InputValidator에서 하는데, 도메인 객체 생성시 또 한번 검증해야될까? <br> <br>
+  &rarr; 테스트시 도메인 객체 생성에 검증부가 없다면 정확한 테스트가 되지 않을 수 있고, 도메인은 스스로 불변성을 유지해야하는 책임이 있으므로 한번 더 검증하자! <br>
 
 - 구입 금액이 1000원 단위인지에 대한 검증은 어디서 해야할까? <br> <br>
-  &rarr; 도메인은 항상 불변해야하고 유효한 상태여야하기 때문에 도메인 내부에서 검증을 하자!
-  (출처: https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/domain-model-layer-validations)
+  &rarr; 도메인은 항상 불변해야하고 유효한 상태여야하기 때문에 도메인 내부에서 검증을 하자! <br>
+  (출처: https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/domain-model-layer-validations) <br>
 
 - 구현 순서에 대한 고민이 생겼다. 머릿속에 떠오르는 클래스도 많고 검증할 예외도 많다. 그리고 기능에 대한 역할 분리, 예외 처리에 대한 역할 분리 등을 생각하다보니 구현 순서를 어떤식으로 해야할지 라는 고민이 생겼다. <br> <br>
-  &rarr; 우선 핵심 도메인 모델과 이에 대한 검증 사항부터 구현해보자! 개발하면서 지속적으로 리팩토링하는 방식으로 개발하자!
+  &rarr; 우선 핵심 도메인 모델과 이에 대한 검증 사항부터 구현해보자! 개발하면서 지속적으로 리팩토링하는 방식으로 개발하자! <br>
 
 - 입력값에 대한 검증과 서비스 로직 내부에서의 검증에 대한 역할이 모호해서 생각이 많아졌다. <br> <br>
-  &rarr; 형식 검증과 비즈니스 규칙 검증으로 나누어서 구현해보자!
-  &rarr; (변경) 도메인 생성시 검증하는 로직은 최종 점검으로 생각하고 입력 로직에서도 최대한 검증을 하자. 입력시 오류 발생시 재입력이 가능하기 때문에, 사용성이 향상될 것이라고 판단해서 변경했다.
+  &rarr; 형식 검증과 비즈니스 규칙 검증으로 나누어서 구현해보자! <br>
+  &rarr; (변경) 도메인 생성시 검증하는 로직은 최종 점검으로 생각하고 입력 로직에서도 최대한 검증을 하자. 입력시 오류 발생시 재입력이 가능하기 때문에, 사용성이 향상될 것이라고 판단해서 변경했다. <br>
 
 - 로또 등수별 개수를 저장하는 클래스에서 EnumMap을 사용해도 괜찮을까? <br> <br>
-  &rarr; EnumMap은 HashMap에 비해서 훨씬 빠르고, Enum 클래스 내에서 상수가 선언된 순서대로 키값이 유지된다고 한다. 상수가 많은것은 아니지만 EnumMap을 사용하지 않을 이유가 없으므로, 사용해보자!
+  &rarr; EnumMap은 HashMap에 비해서 훨씬 빠르고, Enum 클래스 내에서 상수가 선언된 순서대로 키값이 유지된다고 한다. 상수가 많은것은 아니지만 EnumMap을 사용하지 않을 이유가 없으므로, 사용해보자! <br>
 
 - 일치하는 번호 및 보너스 번호 일치 여부를 확인하는 로직은 어디에 위치해야할까? (로또 당첨번호 및 보너스 번호를 저장하는 클래스?/ 로또 결과를 확인하고 결과를 저장하는 클래스?) <br> <br>
-  &rarr; 당첨 번호라는 도메인이 스스로 판정을 책임지도록 하는것이 맞다고 생각이 들어서 LottoWinningNumbers 내부에서 확인하고 개수를 반환하는 형태로 구현하자!
+  &rarr; 당첨 번호라는 도메인이 스스로 판정을 책임지도록 하는것이 맞다고 생각이 들어서 LottoWinningNumbers 내부에서 확인하고 개수를 반환하는 형태로 구현하자! <br>
 
-- 전체 로또에 대한 확인 결과를 LottoResultCalculator에서 LottoResult를 의존성을 주입받아 추가하는게 나을까? / LottoResultCalculator 내부에서 LottoRank()를 생성해서 컨트롤러에 반환하는게 좋을까?
-  &rarr; LottoResult는 계산 결과이며, 상태가 필요한 객체가 아니다. 따라서 LottoResultCalculator는 외부에서 주입받지 않고 내부에서 LottoResult를 생성한 후 결과 객체를 반환하도록 설계했다.
+- 전체 로또에 대한 확인 결과를 LottoResultCalculator에서 LottoResult를 의존성을 주입받아 추가하는게 나을까? / LottoResultCalculator 내부에서 LottoRank()를 생성해서 컨트롤러에 반환하는게 좋을까? <br> <br>
+  &rarr; LottoResult는 계산 결과이며, 상태가 필요한 객체가 아니다. 따라서 LottoResultCalculator는 외부에서 주입받지 않고 내부에서 LottoResult를 생성한 후 결과 객체를 반환하도록 설계했다. <br>
   
 - OutputView에서 도메인 내부 상태를 그대로 출력하는것에 문제가 없을까?
   - 문제점
     - 도메인과 출력형식이 서로 의존하게 될 수 있을것 같다
-    - 단위 테스트시 서로의 역할이 분리되어 있어야할 것 같다
-  &rarr; OutputView 전용 DTO(Data Transfer Object)를 사용해보자!
+    - 단위 테스트시 서로의 역할이 분리되어 있어야할 것 같다 <br> <br>
+  &rarr; OutputView 전용 DTO(Data Transfer Object)를 사용해보자! <br>
 
-- 결과 출력시 Rank에서 번호 일치 개수와 보너스 번호 일치 여부를 계속 호출해서 가져오는것 보다 좋은 방법이 없을까?
-  &rarr; enum Rank에 description 필드를 추가하고 출력시 이를 이용하자!
+- 결과 출력시 Rank에서 번호 일치 개수와 보너스 번호 일치 여부를 계속 호출해서 가져오는것 보다 좋은 방법이 없을까? <br> <br>
+  &rarr; enum Rank에 description 필드를 추가하고 출력시 이를 이용하자! <br>
+
+- 로또 번호 혹은 당첨 번호 변수를 직접 getter로 반환받아서 사용한다면 도메인 객체의 불변성이 보장되지 않는것이 아닐가? <br> <br>
+  &rarr; 현재 구조에서는 외부 코드가 getNumbers()로 가져간 리스트를 마음대로 변경할 수 있다. 예를 들어 getNumbers().add(1) 와 같은 조작이 가능하며, 이는 로또 번호 불변 규칙을 깨뜨린다. 복사본을 반환하는 방식으로 바꾸자! <br>
 ## 패키지 구조
 
 ---
