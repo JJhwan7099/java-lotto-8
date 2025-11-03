@@ -1,17 +1,24 @@
 package lotto.validator;
 
+import lotto.exception.ErrorCode;
+
 import java.util.List;
 
 public class InputValidator {
-
-    public static void validateTotalPurchaseAmount(String totalPurchaseAmount) {
+    public void validateTotalPurchaseAmountFormat(String totalPurchaseAmount) {
         if (!totalPurchaseAmount.matches("\\d+") || totalPurchaseAmount.isBlank()) {
-            throw new IllegalArgumentException("[ERROR] 숫자를 입력해야 합니다.");
+            throw new IllegalArgumentException(ErrorCode.TOTAL_PURCHASE_AMOUNT_FORMAT_INVALID.getMessage());
         }
     }
 
-    public static void validateLottoWinningNumbers(List<Integer> lottoWinningNumbers) {
-        if (lottoWinningNumbers.size() != 6)
-            throw new IllegalArgumentException("[ERROR] 로또 당첨 번호는 6개여야 합니다.");
+    public void validateLottoWinningNumbersFormat(String lottoWinningNumbers) {
+        if(!lottoWinningNumbers.matches("[0-9,\\s]+"))
+            throw new IllegalArgumentException(ErrorCode.WINNING_NUMBER_FORMAT_INVALID.getMessage());
+    }
+
+    public void validateLottoBonusNumberFormat(String lottoBonusNumber) {
+        if (!lottoBonusNumber.matches("\\d+") || lottoBonusNumber.isBlank()) {
+            throw new IllegalArgumentException(ErrorCode.BONUS_NUMBER_FORMAT_INVALID.getMessage());
+        }
     }
 }
