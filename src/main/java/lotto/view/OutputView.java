@@ -50,8 +50,9 @@ public class OutputView {
     }
 
     private void printProfitRate(LottoResult lottoResult, int totalPurchaseAmount) {
-        float profitRate = (float) Math.round(((float) lottoResult.getTotalPrize() / totalPurchaseAmount) * 100 * 100) / 100;
+        float profitRate = lottoResult.getProfitRate(totalPurchaseAmount);
         System.out.println("총 수익률은 " + profitRate + "%입니다.");
+
     }
 
     public void printErrorMessage(String errorMessage) {
