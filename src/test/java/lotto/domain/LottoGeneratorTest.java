@@ -8,8 +8,7 @@ public class LottoGeneratorTest {
     @Test
     void 금액만큼_로또_생성() {
         LottoGenerator g = new LottoGenerator();
-        Lottos lottos = new Lottos();
-        g.generateLottos(lottos, new TotalPurchaseAmount(3000));
+        Lottos lottos = g.generateLottos(new TotalPurchaseAmount(3000));
         assertThat(lottos.getAllLottos()).hasSize(3);
     }
 }
