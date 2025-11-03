@@ -25,7 +25,7 @@ public class Lotto {
 
     private void validateDuplicates(List<Integer> numbers) {
         HashSet<Integer> set = new HashSet<>(numbers);
-        if(set.size() != numbers.size()) {
+        if (set.size() != numbers.size()) {
             throw new IllegalArgumentException(ErrorCode.LOTTO_NUMBER_DUPLICATE.getMessage());
         }
     }
@@ -37,8 +37,8 @@ public class Lotto {
     }
 
     private void validateNumberRange(List<Integer> numbers) {
-        for(Integer number : numbers) {
-            if(number < LOTTO_NUMBER_MIN || number > LOTTO_NUMBER_MAX)
+        for (Integer number : numbers) {
+            if (number < LOTTO_NUMBER_MIN || number > LOTTO_NUMBER_MAX)
                 throw new IllegalArgumentException(ErrorCode.LOTTO_NUMBER_RANGE_INVALID.getMessage());
         }
     }

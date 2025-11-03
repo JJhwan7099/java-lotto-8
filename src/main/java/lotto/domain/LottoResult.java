@@ -28,7 +28,7 @@ public class LottoResult {
 
     public int getTotalPrize() {
         int totalPrize = 0;
-        for(Map.Entry<LottoRank, Integer> entry : this.result.entrySet()) {
+        for (Map.Entry<LottoRank, Integer> entry : this.result.entrySet()) {
             totalPrize += entry.getKey().getPrizeAmount() * entry.getValue();
         }
         return totalPrize;

@@ -8,7 +8,7 @@ import java.util.List;
 public class InputParser {
 
     public int parseTotalPurchaseAmount(String totalPurchaseAmount) {
-        try{
+        try {
             return Integer.parseInt(totalPurchaseAmount);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(ErrorCode.TOTAL_PURCHASE_AMOUNT_FORMAT_INVALID.getMessage());
@@ -29,7 +29,7 @@ public class InputParser {
     }
 
     public int parseLottoBonusNumber(String inputLottoBonusNumber) {
-        try{
+        try {
             return Integer.parseInt(inputLottoBonusNumber.trim());
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(ErrorCode.BONUS_NUMBER_FORMAT_INVALID.getMessage());

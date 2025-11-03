@@ -45,7 +45,7 @@ public class OutputView {
 
     private void printRankResult(LottoRank rank, LottoResult lottoResult) {
         System.out.println(rank.getDescription() + " ("
-                + MONEY_FORMAT.format(rank.getPrizeAmount())+"원) - "
+                + MONEY_FORMAT.format(rank.getPrizeAmount()) + "원) - "
                 + lottoResult.getResult().get(rank) + "개");
     }
 

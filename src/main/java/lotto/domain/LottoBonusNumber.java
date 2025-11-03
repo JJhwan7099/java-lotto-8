@@ -23,13 +23,13 @@ public class LottoBonusNumber {
     }
 
     private void validateBonusNumberRange(int bonusNumber) {
-        if(bonusNumber < LottoConstraints.LOTTO_NUMBER_MIN || bonusNumber > LottoConstraints.LOTTO_NUMBER_MAX) {
+        if (bonusNumber < LottoConstraints.LOTTO_NUMBER_MIN || bonusNumber > LottoConstraints.LOTTO_NUMBER_MAX) {
             throw new IllegalArgumentException(ErrorCode.BONUS_NUMBER_RANGE_INVALID.getMessage());
         }
     }
 
     private void validateBonusNumberDuplicate(int bonusNumber, List<Integer> winningNumbers) {
-        if(winningNumbers.contains(bonusNumber)) {
+        if (winningNumbers.contains(bonusNumber)) {
             throw new IllegalArgumentException(ErrorCode.BONUS_NUMBER_DUPLICATE.getMessage());
         }
     }

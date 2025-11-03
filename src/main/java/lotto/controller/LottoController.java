@@ -55,7 +55,7 @@ public class LottoController {
     }
 
     private TotalPurchaseAmount inputTotalPurchaseAmount() {
-        while(true) {
+        while (true) {
             try {
                 String totalPurchaseAmountInput = inputView.inputTotalPurchaseAmount();
                 inputValidator.validateTotalPurchaseAmountFormat(totalPurchaseAmountInput);
@@ -68,7 +68,7 @@ public class LottoController {
     }
 
     private LottoWinningNumbers inputLottoWinningNumbers() {
-        while(true) {
+        while (true) {
             try {
                 String inputLottoWinningNumbers = inputView.inputLottoWinningNumbers();
                 inputValidator.validateLottoWinningNumbersFormat(inputLottoWinningNumbers);
@@ -82,7 +82,7 @@ public class LottoController {
     }
 
     private LottoBonusNumber inputLottoBonusNumber(LottoWinningNumbers lottoWinningNumbers) {
-        while(true) {
+        while (true) {
             try {
                 String inputLottoBonusNumber = inputView.inputLottoBonusNumber();
                 inputValidator.validateLottoBonusNumberFormat(inputLottoBonusNumber);

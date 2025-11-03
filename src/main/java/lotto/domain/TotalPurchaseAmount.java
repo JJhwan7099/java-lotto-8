@@ -23,7 +23,7 @@ public class TotalPurchaseAmount {
     }
 
     private void validateAmountRange(int value) {
-        if(value < 1000) {
+        if (value < 1000) {
             throw new IllegalArgumentException(ErrorCode.TOTAL_PURCHASE_AMOUNT_RANGE_INVALID.getMessage());
         }
     }

@@ -10,7 +10,7 @@ public class InputValidator {
     }
 
     public void validateLottoWinningNumbersFormat(String lottoWinningNumbers) {
-        if(!lottoWinningNumbers.matches("[0-9,\\s]+"))
+        if (!lottoWinningNumbers.matches("[0-9,\\s]+"))
             throw new IllegalArgumentException(ErrorCode.WINNING_NUMBER_FORMAT_INVALID.getMessage());
     }
 
