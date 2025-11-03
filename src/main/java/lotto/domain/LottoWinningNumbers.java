@@ -36,7 +36,7 @@ public class LottoWinningNumbers {
     }
 
     private void validateWinningNumbersSize(List<Integer> winningNumbers) {
-        if(winningNumbers.size() != 6)
+        if(winningNumbers.size() != LottoConstraints.LOTTO_NUMBER_COUNT)
             throw new IllegalArgumentException(ErrorCode.WINNING_NUMBER_SIZE_INVALID.getMessage());
     }
 
