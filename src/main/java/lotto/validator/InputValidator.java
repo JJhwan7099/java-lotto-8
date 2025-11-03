@@ -2,8 +2,6 @@ package lotto.validator;
 
 import lotto.exception.ErrorCode;
 
-import java.util.List;
-
 public class InputValidator {
     public void validateTotalPurchaseAmountFormat(String totalPurchaseAmount) {
         if (!totalPurchaseAmount.matches("\\d+") || totalPurchaseAmount.isBlank()) {
