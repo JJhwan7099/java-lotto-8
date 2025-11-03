@@ -7,10 +7,12 @@ import java.util.List;
 import static lotto.domain.LottoConstraints.*;
 
 public class LottoGenerator {
-    public void generateLottos(Lottos lottos, TotalPurchaseAmount totalPurchaseAmount) {
+    public Lottos generateLottos(TotalPurchaseAmount totalPurchaseAmount) {
+        Lottos lottos = new Lottos();
         for (int i = 0; i < totalPurchaseAmount.getValue() / LOTTO_PRICE; i++) {
             lottos.add(new Lotto(generateRandomLottoNumbers()));
         }
+        return lottos;
     }
 
     private List<Integer> generateRandomLottoNumbers() {
