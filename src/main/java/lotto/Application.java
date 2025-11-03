@@ -4,6 +4,7 @@ import lotto.controller.LottoController;
 import lotto.domain.LottoGenerator;
 import lotto.domain.Lottos;
 import lotto.domain.parser.InputParser;
+import lotto.validator.InputValidator;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
@@ -16,7 +17,8 @@ public class Application {
         InputParser inputParser = new InputParser();
         Lottos lottos = new Lottos();
         LottoGenerator lottoGenerator = new LottoGenerator(lottos);
-        LottoController lottoController = new LottoController(inputView, outputView, inputParser, lottos, lottoGenerator);
+        InputValidator inputValidator = new InputValidator();
+        LottoController lottoController = new LottoController(inputView, outputView, inputParser, lottos, lottoGenerator, inputValidator);
         lottoController.run();
     }
 }
