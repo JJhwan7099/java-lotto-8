@@ -25,7 +25,11 @@ public class OutputView {
     public void printPurchasedLottos(List<Lotto> lottos) {
         System.out.println("\n" + lottos.size() + "개를 구매했습니다.");
         for (Lotto lotto : lottos) {
-            System.out.println(String.join(", ", lotto.getNumbers().toString()));
+            System.out.println("["+String.join(", ",
+                    lotto.getNumbers().stream()
+                            .map(String::valueOf)
+                            .toList()
+            ) + "]");
         }
     }
 
