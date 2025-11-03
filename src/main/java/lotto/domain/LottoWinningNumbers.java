@@ -6,14 +6,11 @@ import java.util.HashSet;
 import java.util.List;
 
 public class LottoWinningNumbers {
-    private final List<Integer> winningNumbers;
-    private final int bonusNumber;
+    private final List<Integer> numbers;
 
-    public LottoWinningNumbers(List<Integer> winningNumbers, int bonusNumber) {
+    public LottoWinningNumbers(List<Integer> winningNumbers) {
         validateWinningNumbers(winningNumbers);
-        this.winningNumbers = winningNumbers;
-        validateBonusNumber(bonusNumber);
-        this.bonusNumber = bonusNumber;
+        this.numbers = winningNumbers;
     }
 
     public int getMatchedCount(Lotto lotto) {
@@ -21,26 +18,25 @@ public class LottoWinningNumbers {
         int matchedCount = 0;
 
         for(Integer number: lottoNumbers) {
-            if(winningNumbers.contains(number)) matchedCount++;
+            if(numbers.contains(number)) matchedCount++;
         }
 
         return matchedCount;
     }
 
-    public boolean getIsBonusMatched(Lotto lotto) {
-        List<Integer> lottoNumbers = lotto.getNumbers();
-        return lottoNumbers.contains(bonusNumber);
+    public List<Integer> getNumbers() {
+        return numbers;
     }
 
-
     private void validateWinningNumbers(List<Integer> winningNumbers) {
+        validateWinningNumbersSize(winningNumbers);
         validateWinningNumbersRange(winningNumbers);
         validateWinningNumbersDuplicate(winningNumbers);
     }
 
-    private void validateBonusNumber(int bonusNumber) {
-        validateBonusNumberRange(bonusNumber);
-        validateBonusNumberDuplicate(bonusNumber);
+    private void validateWinningNumbersSize(List<Integer> winningNumbers) {
+        if(winningNumbers.size() != 6)
+            throw new IllegalArgumentException(ErrorCode.WINNING_NUMBER_SIZE_INVALID.getMessage());
     }
 
     private void validateWinningNumbersRange(List<Integer> winningNumbers) {
@@ -54,18 +50,6 @@ public class LottoWinningNumbers {
         HashSet<Integer> duplicateNumbers = new HashSet<>(winningNumbers);
         if(duplicateNumbers.size() != winningNumbers.size()){
             throw new IllegalArgumentException(ErrorCode.WINNING_NUMBER_DUPLICATE.getMessage());
-        }
-    }
-
-    private void validateBonusNumberRange(int bonusNumber) {
-        if(bonusNumber < LottoConstraints.LOTTO_NUMBER_MIN || bonusNumber > LottoConstraints.LOTTO_NUMBER_MAX) {
-            throw new IllegalArgumentException(ErrorCode.BONUS_NUMBER_RANGE_INVALID.getMessage());
-        }
-    }
-
-    private void validateBonusNumberDuplicate(int bonusNumber) {
-        if(winningNumbers.contains(bonusNumber)) {
-            throw new IllegalArgumentException(ErrorCode.BONUS_NUMBER_DUPLICATE.getMessage());
         }
     }
 }
