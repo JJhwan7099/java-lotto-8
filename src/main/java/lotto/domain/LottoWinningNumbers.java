@@ -2,6 +2,7 @@ package lotto.domain;
 
 import lotto.exception.ErrorCode;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class LottoWinningNumbers {
     }
 
     public List<Integer> getNumbers() {
-        return numbers;
+        return new ArrayList<>(this.numbers);
     }
 
     private void validateWinningNumbers(List<Integer> winningNumbers) {
