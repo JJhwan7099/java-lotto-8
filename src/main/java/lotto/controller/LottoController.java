@@ -15,17 +15,18 @@ public class LottoController {
     private final InputParser inputParser;
     private final Lottos lottos;
     private final LottoGenerator lottoGenerator;
+    private final InputValidator inputValidator;
 
-    public LottoController(InputView inputView, OutputView outputView, InputParser inputParser, Lottos lottos, LottoGenerator lottoGenerator) {
+    public LottoController(InputView inputView, OutputView outputView, InputParser inputParser, Lottos lottos, LottoGenerator lottoGenerator, InputValidator inputValidator) {
         this.inputView = inputView;
         this.outputView = outputView;
         this.inputParser = inputParser;
         this.lottos = lottos;
         this.lottoGenerator = lottoGenerator;
+        this.inputValidator = inputValidator;
     }
 
     public void run() {
-
         outputView.printRequestTotalPurchaseAmount();
         TotalPurchaseAmount totalPurchaseAmount = inputTotalPurchaseAmount();
 
@@ -33,52 +34,50 @@ public class LottoController {
         outputView.printPurchasedLottos(lottos.getAllLottos());
 
         outputView.printRequestLottoWinningNumbers();
-        List<Integer> parsedLottoWinningNumbers = inputLottoWinningNumbers();
+        LottoWinningNumbers lottoWinningNumbers = inputLottoWinningNumbers();
 
         outputView.printRequestLottoBonusNumber();
-        String inputLottoBonusNumber = inputLottoBonusNumber();
+        LottoBonusNumber lottoBonusNumber = inputLottoBonusNumber(lottoWinningNumbers);
 
-        int lottoBonusNumber = inputParser.parseLottoBonusNumber(inputLottoBonusNumber);
-
-        LottoWinningNumbers lottoWinningNumbers = new LottoWinningNumbers(parsedLottoWinningNumbers,lottoBonusNumber);
-
-        LottoResult lottoResult = new LottoResultCalculator().calculateRank(lottos, lottoWinningNumbers);
-
+        LottoResult lottoResult = new LottoResultCalculator().calculateRank(lottos, lottoWinningNumbers, lottoBonusNumber);
         outputView.printResult(lottoResult, totalPurchaseAmount.getValue());
-    }
-
-    private String inputLottoBonusNumber() {
-        while(true) {
-            try {
-                return inputView.inputLottoBonusNumber();
-            } catch (IllegalArgumentException e) {
-                outputView.printErrorMessage(e.getMessage());
-            }
-        }
     }
 
     private TotalPurchaseAmount inputTotalPurchaseAmount() {
         while(true) {
             try {
                 String totalPurchaseAmountInput = inputView.inputTotalPurchaseAmount();
-                InputValidator.validateTotalPurchaseAmount(totalPurchaseAmountInput);
+                inputValidator.validateTotalPurchaseAmountFormat(totalPurchaseAmountInput);
 
-                return new TotalPurchaseAmount(Integer.parseInt(totalPurchaseAmountInput));
+                return new TotalPurchaseAmount(inputParser.parseTotalPurchaseAmount(totalPurchaseAmountInput));
             } catch (IllegalArgumentException e) {
                 outputView.printErrorMessage(e.getMessage());
             }
         }
     }
 
-    private void generateLottos(TotalPurchaseAmount totalPurchaseAmount) {
-        lottoGenerator.generateLottos(totalPurchaseAmount);
-    }
-
-    private List<Integer> inputLottoWinningNumbers() {
+    private LottoWinningNumbers inputLottoWinningNumbers() {
         while(true) {
             try {
                 String inputLottoWinningNumbers = inputView.inputLottoWinningNumbers();
-                return inputParser.parseLottoWinningNumbers(inputLottoWinningNumbers);
+                inputValidator.validateLottoWinningNumbersFormat(inputLottoWinningNumbers);
+                List<Integer> lottoWinningNumbers = inputParser.parseLottoWinningNumbers(inputLottoWinningNumbers);
+
+                return new LottoWinningNumbers(lottoWinningNumbers);
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e.getMessage());
+            }
+        }
+    }
+
+    private LottoBonusNumber inputLottoBonusNumber(LottoWinningNumbers lottoWinningNumbers) {
+        while(true) {
+            try {
+                String inputLottoBonusNumber = inputView.inputLottoBonusNumber();
+                inputValidator.validateLottoBonusNumberFormat(inputLottoBonusNumber);
+                int lottoBonusNumber = inputParser.parseLottoBonusNumber(inputLottoBonusNumber);
+
+                return new LottoBonusNumber(lottoBonusNumber, lottoWinningNumbers.getNumbers());
             } catch (IllegalArgumentException e) {
                 outputView.printErrorMessage(e.getMessage());
             }
