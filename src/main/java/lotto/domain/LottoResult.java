@@ -33,4 +33,9 @@ public class LottoResult {
         }
         return totalPrize;
     }
+
+    public float getProfitRate(int totalPurchaseAmount) {
+        return (float) Math.round(((float) getTotalPrize() / totalPurchaseAmount) * 100 * 100) / 100;
+    }
+
 }
