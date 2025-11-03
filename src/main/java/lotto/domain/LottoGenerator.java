@@ -2,19 +2,13 @@ package lotto.domain;
 
 import camp.nextstep.edu.missionutils.Randoms;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static lotto.domain.LottoConstraints.*;
 
 public class LottoGenerator {
-
-    private final Lottos lottos;
-
-    public LottoGenerator(Lottos lottos) {
-        this.lottos = lottos;
-    }
-
-    public void generateLottos(TotalPurchaseAmount totalPurchaseAmount) {
+    public void generateLottos(Lottos lottos, TotalPurchaseAmount totalPurchaseAmount) {
         for(int i = 0; i < totalPurchaseAmount.getValue()/LOTTO_PRICE; i++) {
             lottos.add(new Lotto(generateRandomLottoNumbers()));
         }

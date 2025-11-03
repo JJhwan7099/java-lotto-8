@@ -27,20 +27,31 @@ public class LottoController {
     }
 
     public void run() {
-        outputView.printRequestTotalPurchaseAmount();
-        TotalPurchaseAmount totalPurchaseAmount = inputTotalPurchaseAmount();
+        TotalPurchaseAmount totalPurchaseAmount = requestPurchaseAmountInput();
 
-        lottoGenerator.generateLottos(totalPurchaseAmount);
+        lottoGenerator.generateLottos(lottos, totalPurchaseAmount);
         outputView.printPurchasedLottos(lottos.getAllLottos());
 
-        outputView.printRequestLottoWinningNumbers();
-        LottoWinningNumbers lottoWinningNumbers = inputLottoWinningNumbers();
-
-        outputView.printRequestLottoBonusNumber();
-        LottoBonusNumber lottoBonusNumber = inputLottoBonusNumber(lottoWinningNumbers);
+        LottoWinningNumbers lottoWinningNumbers = requestWinningNumbers();
+        LottoBonusNumber lottoBonusNumber = requestBonusNumber(lottoWinningNumbers);
 
         LottoResult lottoResult = new LottoResultCalculator().calculateRank(lottos, lottoWinningNumbers, lottoBonusNumber);
         outputView.printResult(lottoResult, totalPurchaseAmount.getValue());
+    }
+
+    private LottoBonusNumber requestBonusNumber(LottoWinningNumbers lottoWinningNumbers) {
+        outputView.printRequestLottoBonusNumber();
+        return inputLottoBonusNumber(lottoWinningNumbers);
+    }
+
+    private LottoWinningNumbers requestWinningNumbers() {
+        outputView.printRequestLottoWinningNumbers();
+        return inputLottoWinningNumbers();
+    }
+
+    private TotalPurchaseAmount requestPurchaseAmountInput() {
+        outputView.printRequestTotalPurchaseAmount();
+        return inputTotalPurchaseAmount();
     }
 
     private TotalPurchaseAmount inputTotalPurchaseAmount() {
