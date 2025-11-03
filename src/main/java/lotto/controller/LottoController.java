@@ -13,15 +13,13 @@ public class LottoController {
     private final InputView inputView;
     private final OutputView outputView;
     private final InputParser inputParser;
-    private final Lottos lottos;
     private final LottoGenerator lottoGenerator;
     private final InputValidator inputValidator;
 
-    public LottoController(InputView inputView, OutputView outputView, InputParser inputParser, Lottos lottos, LottoGenerator lottoGenerator, InputValidator inputValidator) {
+    public LottoController(InputView inputView, OutputView outputView, InputParser inputParser, LottoGenerator lottoGenerator, InputValidator inputValidator) {
         this.inputView = inputView;
         this.outputView = outputView;
         this.inputParser = inputParser;
-        this.lottos = lottos;
         this.lottoGenerator = lottoGenerator;
         this.inputValidator = inputValidator;
     }
@@ -29,7 +27,7 @@ public class LottoController {
     public void run() {
         TotalPurchaseAmount totalPurchaseAmount = requestPurchaseAmountInput();
 
-        lottoGenerator.generateLottos(lottos, totalPurchaseAmount);
+        Lottos lottos = lottoGenerator.generateLottos(totalPurchaseAmount);
         outputView.printPurchasedLottos(lottos.getAllLottos());
 
         LottoWinningNumbers lottoWinningNumbers = requestWinningNumbers();
