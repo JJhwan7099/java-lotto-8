@@ -257,3 +257,10 @@ src/main/java/lotto
 ## 테스트
 
 ---
+
+## 클래스 다이어그램
+
+---
+
+<img width="2586" height="2396" alt="package" src="https://github.com/user-attachments/assets/28d572e2-4934-4448-af6f-ce70a6c1ae60" />
+
