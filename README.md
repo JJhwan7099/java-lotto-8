@@ -258,6 +258,40 @@ src/main/java/lotto
 
 ---
 
+### 단위 테스트
+- InputValidator
+  - [ ] validateTotalPurchaseAmountFormat() 테스트
+  - [ ] validateLottoWinningNumbersFormat() 테스트
+  - [ ] validateLottoBonusNumberFormat() 테스트
+- TotalPurchaseAmount
+  - [ ] 천원 단위가 아닐 경우 예외발생
+  - [ ] 천원 이상이 아닐 경우 예외발생
+  - [ ] 정상 생성
+- LottoWinningNumbers
+  - [ ] 중복번호 예외 발생
+  - [ ] 일치하는 번호 개수 정상 계산
+  - [ ] 각 숫자가 1~45 범위를 벗어나면 예외 발생
+- LottoBonusNumber
+  - [ ] 당첨번호와 중복시 예외 발생
+  - [ ] 1~45 범위를 벗어나면 예외 발생
+- LottoResultCalculator
+  - [ ] 등수계산 적상작동 테스트
+- LottoResult
+  - [ ] 등수별 초기값 0인지 테스트
+  - [ ] 등수를 추가하면 등수의 카운트가 증가하는지 테스트
+  - [ ] getResult() 반환값은 복사본인지 확인
+  - [ ] getTotalPrize() 정상 반환 확인
+  - [ ] 수익률 계산로직 정상작동 테스트
+- LottoGenerator
+  - [ ] 금액만큼 로또 생성되는지 확인
+- Lotto
+  - [ ] 로또번호 정상 생성 확인
+  - [ ] 로또번호 6개인지 확인
+  - [ ] 로또번호 1~45를 벗어나면 예외 발생
+  - [ ] 로또번호 중복시 예외 발생
+- Lottos
+  - [ ] 로또를 추가했을때 정상적으로 조회되는지 확인
+
 ## 클래스 다이어그램
 
 ---
