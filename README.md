@@ -113,10 +113,6 @@
 총 수익률은 62.5%입니다.
 ```
 
-## 추가 제한 사항
-
----
-
 ## 기능 목록
 
 ---
@@ -205,9 +201,58 @@
 
 ---
 
+```
+src/main/java/lotto
+├── Application.java
+├── controller
+│   └── LottoController.java
+├── domain
+│   ├── Lotto.java
+│   ├── LottoBonusNumber.java
+│   ├── LottoConstraints.java
+│   ├── LottoGenerator.java
+│   ├── LottoRank.java
+│   ├── LottoResult.java
+│   ├── LottoResultCalculator.java
+│   ├── LottoWinningNumbers.java
+│   ├── Lottos.java
+│   ├── TotalPurchaseAmount.java
+│   └── parser
+│       └── InputParser.java
+├── exception
+│   └── ErrorCode.java
+├── validator
+│   └── InputValidator.java
+└── view
+    ├── InputView.java
+    └── OutputView.java
+
+```
+
 ## 각 클래스별 역할
 
 ---
+
+| 클래스                       | 역할 요약                      |
+| ------------------------- |----------------------------|
+| **Application**           | 프로그램 실행 시작점, Controller 호출 |
+| **LottoController**       | 입력 → 도메인 처리 → 출력 전체 흐름 제어  |
+| **Lotto**                 | 6개의 로또 번호를 가진 불변 도메인 객체    |
+| **LottoBonusNumber**      | 보너스 번호 도메인(중복 검사 포함)       |
+| **LottoConstraints**      | 상수 정의(범위, 개수 등)            |
+| **LottoGenerator**        | 로또 자동 생성 (구매수 → 개수 생성)     |
+| **LottoRank**             | 등수 정의 Enum(매칭 수, 보너스 여부, 상금) |
+| **LottoResult**           | 등수별 당첨 횟수, 총 당첨금 저장 및 수익률 계산 |
+| **LottoResultCalculator** | 로또 결과 계산(매칭 판단, 등수 집계)     |
+| **LottoWinningNumbers**   | 당첨 번호(6개 숫자) 도메인           |
+| **Lottos**                | 여러 로또를 보관하는 컬렉션 도메인        |
+| **TotalPurchaseAmount**   | 구매 금액 도메인 → 구매 가능한 장 수 계산  |
+| **InputParser**           | 문자열 입력 → 도메인 객체 변환         |
+| **ErrorCode**             | 예외 메시지 모음(에러 유형 정의)        |
+| **InputValidator**        | 입력 형식 검증(숫자/구분자/길이 체크 등)   |
+| **InputView**             | 사용자 입력 요청 및 전달             |
+| **OutputView**            | 로또 생성 결과, 당첨 결과, 수익률 출력    |
+
 
 ## 테스트
 
