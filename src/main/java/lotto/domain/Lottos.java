@@ -15,6 +15,6 @@ public class Lottos {
     }
 
     public List<Lotto> getAllLottos() {
-        return lottos;
+        return new ArrayList<>(lottos);
     }
 }
